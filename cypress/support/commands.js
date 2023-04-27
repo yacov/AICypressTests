@@ -5,7 +5,7 @@ const apiUrl = Cypress.env('API_URL');
 const apiToken = Cypress.env('authToken');
 const headers = {
     'Accept': 'application/json, text/json, text/x-json, text/javascript, application/xml, text/xml',
-    'Authorization': `Bearer ${Cypress.env('authToken')}`
+    'Authorization': `Bearer ${apiToken}`
 };
 const {login: userName, password} = Cypress.env('admin_user');
 
