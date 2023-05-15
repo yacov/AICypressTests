@@ -1,7 +1,6 @@
 const {defineConfig} = require("cypress");
 const faker = require("faker");
 const {SwaggerValidation} = require('@jc21/cypress-swagger-validation');
-const requestPromise = require('request-promise');
 
 module.exports = defineConfig({
 

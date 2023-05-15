@@ -19,24 +19,29 @@ before(() => {
         cy.createIndividual(individualData).then((response) => {
             cy.wrap(response).should('have.nested.property', 'status', 200);
             cy.wrap(response.body).should(spok({
-                caseNumber: spok.string,
-                caseType: spok.string,
-                caseStatus: spok.string,
-                firstName: individualData.firstName,
-                lastName: individualData.lastName,
-                birthDate: individualData.birthDate,
-                addressLine1: individualData.addressLine1,
-                addressLine2: individualData.addressLine2,
-                postcode: individualData.postcode,
-                city: individualData.city,
-                province: individualData.province,
-                journeyName: individualData.journeyName,
-                properties: individualData.properties,
-                isManuallyCreated: true,
-                isVisibleInLiveCases: true,
-                rawAddress: individualData.rawAddress,
-                nameTransposition: individualData.nameTransposition,
-                userId: individualData.userId
+                caseDetail: {
+                    details: {
+                        individual: {
+                            firstName: individualData.firstName,
+                            lastName: individualData.lastName,
+                            countryCodeISO31662: spok.string,
+                            country: spok.string,
+                            nameTransposition: spok.type('boolean'),
+                        },
+                        isCaseAMLPositive: spok.type('boolean'),
+                        common: {
+                            typeString: 'Individual',
+                            status: spok.string,
+                            isVisible: spok.type('boolean'),
+                            isVisibleInLiveCases: spok.type('boolean'),
+                        },
+                        caseAddress: {
+                            country: spok.string,
+                            rawAddress: spok.string,
+                            userId: individualData.userId,
+                        }
+                    }
+                }
             }));
         });
     })

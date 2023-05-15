@@ -1,32 +1,24 @@
 const fs = require("fs");
 const path = require("path");
+const {exec} = require("child_process");
 const {spawn} = require("child_process");
 const openai = require("openai");
 
 // Load the OpenAI API key from the openai_key.txt file
-const apiKey = fs.readFileSync("openai_key.txt", "utf-8").trim();
-openai.apiKey = apiKey;
+//const apiKey = fs.readFileSync("openai_key.txt", "utf-8").trim();
+openai.apiKey = "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";
 
 async function runCypressTest(testPath, options = []) {
+    const cmd = `npx cypress run --spec ${testPath} ${options.join(' ')}`;
+
     return new Promise((resolve, reject) => {
-        const cypress = spawn("cypress", ["run", "--spec", testPath, ...options]);
-
-        let output = "";
-        let errorOutput = "";
-
-        cypress.stdout.on("data", (data) => {
-            output += data.toString();
-        });
-
-        cypress.stderr.on("data", (data) => {
-            errorOutput += data.toString();
-        });
-
-        cypress.on("close", (code) => {
-            if (code === 0) {
-                resolve(output);
+        exec(cmd, (error, stdout, stderr) => {
+            if (error) {
+                console.error(`Cypress test failed with exit code: ${error.code}`);
+                reject({message: stderr, code: error.code});
             } else {
-                reject({message: errorOutput, code});
+                console.log("Cypress test completed successfully.");
+                resolve(stdout);
             }
         });
     });
@@ -36,7 +28,7 @@ async function sendErrorToGPT4(testPath, errorMessage) {
     const testContent = fs.readFileSync(testPath, "utf-8");
 
     const prompt = `
-Gleb Bahmutov, as a Cypress and JavaScript guru, please help me fix the following Cypress test:
+Act as Gleb Bahmutov, Cypress and JavaScript guru, please help me fix the following Cypress test:
 
 ${testContent}
 
@@ -57,7 +49,7 @@ Please provide your suggested changes and explanations in JSON format. Remember 
 `;
 
     const response = await openai.ChatCompletion.create({
-        model: "gpt-4",
+        model: "gpt-3.5-turbo",
         messages: [{role: "user", content: prompt}],
         temperature: 1.0,
     });
@@ -99,7 +91,7 @@ async function applyChanges(testPath, changesJson) {
     const args = process.argv.slice(2);
 
     if (args.length < 1) {
-        console.error("Usage: node cypress_fixer.js <test_path>");
+        console.error("Usage: node AItestRunAndHeal.js <test_path>");
         process.exit(1);
     }
 
@@ -108,8 +100,9 @@ async function applyChanges(testPath, changesJson) {
     // Make a backup of the original test
     const backupTestPath = `${testPath}.bak`;
     fs.copyFileSync(testPath, backupTestPath);
-
-    while (true) {
+    const maxRetries = 5;  // Set your desired maximum number of retries
+    let retryCount = 0;
+    while (retryCount < maxRetries) {
         try {
             const output = await runCypressTest(testPath);
             console.log("Cypress test ran successfully.");
@@ -123,12 +116,16 @@ async function applyChanges(testPath, changesJson) {
                 const jsonResponse = await sendErrorToGPT4(testPath, error.message);
                 await applyChanges(testPath, jsonResponse);
                 console.log("Changes applied. Rerunning...");
+                retryCount++;
             } catch (gptError) {
                 console.error("An error occurred while communicating with GPT-4.");
                 console.error(gptError);
                 break;
             }
         }
+    }
+    if (retryCount >= maxRetries) {
+        console.error(`Maximum retries (${maxRetries}) exceeded. Stopping the script.`);
     }
 })();
 

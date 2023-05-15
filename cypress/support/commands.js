@@ -64,7 +64,7 @@ Cypress.Commands.add('getCaseProgress', (caseId, caseType) => {
     });
 });
 Cypress.Commands.add('createIndividual', (individualData) => {
-    return cy.request({
+    return cy.api({
         method: 'POST',
         url: apiUrl+'/Individuals',
         headers: {
