@@ -1,0 +1,16 @@
+{
+  "baseUrl": "https://api-stage.knowyourcustomer.com",
+  "swaggerPath": "/swagger/v2/swagger.json",
+  "api_tests": {
+    "get": {
+      "path": "/",
+      "response": 200,
+      "body": {}
+    },
+    "post": {
+      "path": "/",
+      "response": 201,
+      "body": {}
+    }
+  }
+}

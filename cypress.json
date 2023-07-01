@@ -1,0 +1,7 @@
+{
+  "baseUrl": "https://api-stage.knowyourcustomer.com",
+  "integrationFolder": "cypress/integration",
+  "testFiles": "api_tests.js",
+  "fixturesFolder": "cypress/fixtures",
+  "supportFile": "cypress/support/commands.js"
+}
