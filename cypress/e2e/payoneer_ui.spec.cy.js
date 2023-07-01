@@ -33,4 +33,9 @@ describe('Payoneer UI', () => {
             cy.enterAccessCodeAndGoToUploadPortal(accessCode);
         });
     });
+    it.only('Should open the Upload Portal and measure page performance', () => {
+        // Request My Info documents using the API
+        const {login, password} = Cypress.env('admin_user');
+        cy.openUploadPortal();
+    });
 });

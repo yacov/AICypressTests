@@ -21,5 +21,7 @@ import './swaggerParser'
 import './swaggerUtils'
 import spok from 'cy-spok'
 import '@bahmutov/cy-api'
+import "@cypress-audit/pa11y/commands";
+import "@cypress-audit/lighthouse/commands";
 // Alternatively you can use CommonJS syntax:
 // require('./commands')

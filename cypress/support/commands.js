@@ -15,7 +15,7 @@ Cypress.Commands.add('newGetSignalRToken', () => {
     const relUri = `${apiUrl}bff-api/KycSignalR/Authorize`;
 
 
-    return cy.request({
+    return cy.api({
         method: 'GET',
         url: relUri,
     }).then((response) => {
@@ -314,6 +314,12 @@ Cypress.Commands.add('requestMyInfoDocument', (caseId, phoneNumber = '+905355671
 
 Cypress.Commands.add('openUploadPortal', () => {
     cy.visit(Cypress.env('uploadPortalUrl'));
+    cy.lighthouse({
+        accessibility: 50,
+        "best-practices": 50,
+        seo: 50,
+        pwa: 20,
+    });
 });
 
 Cypress.Commands.add('enterAccessCodeAndGoToUploadPortal', (code) => {

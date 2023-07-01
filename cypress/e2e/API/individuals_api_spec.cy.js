@@ -38,7 +38,6 @@ before(() => {
                         caseAddress: {
                             country: spok.string,
                             rawAddress: spok.string,
-                            userId: individualData.userId,
                         }
                     }
                 }
