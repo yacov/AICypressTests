@@ -2,6 +2,7 @@
   "dependencies": {
     "-": "^0.0.1",
     "@bahmutov/cy-api": "^2.2.4",
+    "@jc21/cypress-swagger-validation": "^0.2.0",
     "@cypress-audit/lighthouse": "^1.4.2",
     "@jc21/cypress-swagger-validation": "^0.2.3",
     "cy-spok": "^1.6.1",
