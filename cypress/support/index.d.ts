@@ -41,5 +41,7 @@ declare namespace Cypress {
         openUploadPortal(): Chainable<void>;
 
         enterAccessCodeAndGoToUploadPortal(code: string): Chainable<void>;
+
+        loginAndGetRequestVerificationToken(): Chainable<void>;
     }
 }

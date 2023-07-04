@@ -1,0 +1,21 @@
+{
+  "env": {
+    "APP_URL": "https://autotest-sta.knowyourcustomer.com/",
+    "SIGNALR_URL": "https://signalr-stage.knowyourcustomer.com/kyc-hub",
+    "PASS_TO_THE_TEST_DATA_FILES": "./TestData/",
+    "API_URL": "https://api-stage.knowyourcustomer.com/v2/",
+    "ASSIGNED_USER_ID": "6062d1d3-a704-4907-9750-0741ebbd48a7",
+    "SHARED_ACCOUNT_URL": "https://sharedaccountsstage.knowyourcustomer.com",
+    "CUSTOMER_ID": 999,
+    "UPLOAD_PORTAL_URL": "https://upload.autotest-sta.knowyourcustomer.com",
+    "LAUNCH_NAME": "Stage Backend regression tests",
+    "PROJECT_NAME": "knowyourcustomer",
+    "USER_ADMIN_LOGIN": "autotesting3@knowyourcustomer.com",
+    "USER_ADMIN_PASSWORD": "TstPs1!",
+    "USER_LOGIN_WITH_CORPORATE_EMAIL_ACCESS": "autotesting.email@knowyourcustomer.com",
+    "USER_PASSWORD_WITH_CORPORATE_EMAIL_ACCESS": "TstPs1!1",
+    "USER_LOGIN_WITH_EXTERNAL_EMAIL_ACCESS": "aqa.user.kyc@zohomail.eu",
+    "USER_PASSWORD_WITH_EXTERNAL_EMAIL_ACCESS": "TstPs1!1",
+    "HEADLESS_MODE": "//headless"
+  }
+}
