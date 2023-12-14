@@ -7,7 +7,7 @@
     "@jc21/cypress-swagger-validation": "^0.2.3",
     "cy-spok": "^1.6.1",
     "faker": "^5.5.3",
-    "openai": "^3.2.1"
+    "openai": "^4.0.0"
   },
   "devDependencies": {
     "@cypress-audit/pa11y": "^1.4.2",
